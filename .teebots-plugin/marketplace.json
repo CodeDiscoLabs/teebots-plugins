@@ -1,0 +1,11 @@
+{
+  "name": "teebots-plugins",
+  "owner": { "name": "Teebots" },
+  "plugins": [
+    {
+      "name": "research",
+      "source": "plugins/research",
+      "description": "把一个题目拆成问题，找来源，再写出能核对的结论。"
+    }
+  ]
+}

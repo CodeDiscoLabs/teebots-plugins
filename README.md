@@ -1,10 +1,10 @@
 # Teebots plugins
 
-Official plugin sources for [Teebots](https://teebots.ai). The desktop store does not read this repository directly. A publish step copies a reviewed version into the Teebots catalog, and the app installs from that catalog.
+Official plugin sources for [Teebots](https://teebots.ai). The desktop store reads a pinned commit of this repository for skills and for plugins that connect directly. Metered plugins still need a catalog entry on the Teebots server before they can be called.
 
 # Teebots 插件
 
-这是 Teebots 官方插件的稿件仓库。桌面里的插件市场不直接读这里。维护者合并并发布之后，插件进入 Teebots 的目录，桌面从目录安装。
+这是 Teebots 官方插件的仓库。第 2、3、4 类由桌面直接读这里的某一次提交。第 1 类还要在 Teebots 后台发布之后才能调用，因为价格和上游密钥不在这个仓库里。
 
 一个插件是装进 Bot 的一包东西，里面可以有技能说明，也可以有一个 MCP 服务。技能不是商店里的另一种商品。
 
@@ -107,7 +107,7 @@ plugins/xhs/skills/xhs-search/SKILL.md
 
 ## 贡献
 
-欢迎提交插件。请同时改 `plugin.json`、对应文件和 `.teebots-plugin/marketplace.json`。合并由维护者完成。合并后的版本发布进 Teebots 目录，商店不会跟着 Git 分支自动更新。
+欢迎提交插件。请同时改 `plugin.json`、对应文件和 `.teebots-plugin/marketplace.json`。合并由维护者完成。桌面钉住某一次提交，不会跟着分支自动更新。第 1 类合并后还要在 Teebots 后台发布才能调用。
 
 ## 许可
 

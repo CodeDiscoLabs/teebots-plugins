@@ -1,0 +1,11 @@
+{
+  "name": "research",
+  "displayName": "调研",
+  "version": "1.0.0",
+  "description": "把一个题目拆成问题，找来源，再写出能核对的结论。",
+  "license": "MIT",
+  "kind": "skill",
+  "category": "research",
+  "author": { "name": "Teebots" },
+  "logo": "assets/logo.svg"
+}
