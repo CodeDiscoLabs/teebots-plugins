@@ -1,7 +1,7 @@
 {
   "name": "research",
   "displayName": "Research",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Break a question into parts, find sources, and write a conclusion that can be checked.",
   "license": "MIT",
   "kind": "skill",

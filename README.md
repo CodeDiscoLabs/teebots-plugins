@@ -40,7 +40,7 @@ Upstream URLs and provider secrets for `metered` plugins stay in the Teebots adm
 {
   "name": "research",
   "displayName": "Research",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Break a question into parts, find sources, and write a conclusion that can be checked.",
   "license": "MIT",
   "kind": "skill",
@@ -50,7 +50,9 @@ Upstream URLs and provider secrets for `metered` plugins stay in the Teebots adm
 }
 ```
 
-`name` is the plugin id: lowercase letters, digits, and hyphens. `version` is a semantic version. Raise it when a skill or `mcp.json` changes. Prices are not stored here, and a price change does not need a new version.
+`name` is the plugin id: lowercase letters, digits, and hyphens. `version` is a semantic version. Raise it when a skill, `mcp.json`, or the logo changes. Prices are not stored here, and a price change does not need a new version.
+
+`logo` is a relative path to an svg or png in the plugin directory. Draw that file as a full square. The desktop clips it into a rounded square, about 22% of the side, and does not follow a circle.
 
 `license` must be `MIT`, `Apache-2.0`, `BSD-2-Clause`, or `BSD-3-Clause`.
 
