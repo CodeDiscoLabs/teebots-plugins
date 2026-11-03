@@ -2,60 +2,57 @@
 
 Official plugin sources for [Teebots](https://teebots.ai). The desktop store reads a pinned commit of this repository for skills and for plugins that connect directly. Metered plugins still need a catalog entry on the Teebots server before they can be called.
 
-# Teebots 插件
+Plugin text in this repository is English. A plugin is one package a bot can enable. It may contain skill instructions, an MCP server, or both. A skill is a file inside a plugin, not a separate product in the store.
 
-这是 Teebots 官方插件的仓库。第 2、3、4 类由桌面直接读这里的某一次提交。第 1 类还要在 Teebots 后台发布之后才能调用，因为价格和上游密钥不在这个仓库里。
+## Layout
 
-一个插件是装进 Bot 的一包东西，里面可以有技能说明，也可以有一个 MCP 服务。技能不是商店里的另一种商品。
-
-## 目录
-
-清单在 `.teebots-plugin/marketplace.json`。每个插件一个目录：
+The catalog is `.teebots-plugin/marketplace.json`. Each plugin is one directory:
 
 ```text
 .teebots-plugin/marketplace.json
-plugins/xhs/plugin.json
-plugins/xhs/mcp.json
-plugins/xhs/skills/xhs-search/SKILL.md
+plugins/research/plugin.json
+plugins/research/skills/investigate/SKILL.md
+plugins/research/assets/logo.svg
 ```
 
-这个布局参考了常见插件仓库的写法，例如 [cursor/plugins](https://github.com/cursor/plugins)：一个目录、`skills/<名字>/SKILL.md`、一份 `mcp.json`。差异是：
+The shape follows common plugin repositories such as [cursor/plugins](https://github.com/cursor/plugins): one directory, `skills/<name>/SKILL.md`, and an `mcp.json` when the plugin has an MCP server. Differences:
 
-- 清单和插件说明用我们自己的文件名，不用 `.cursor-plugin/`。
-- 不收录那个仓库里的插件，也不使用其中的商标和图标。
-- 本仓库不放密钥、上游地址和价格。
+- The catalog and the plugin manifest use our filenames, not `.cursor-plugin/`.
+- This repository does not vendor plugins from that repo, and it does not use their trademarks or icons.
+- This repository does not contain secrets, upstream URLs, or prices.
 
-## 四类
+## Four kinds
 
-`plugin.json` 的 `kind` 取下面四个值之一。
+`plugin.json` sets `kind` to one of these values.
 
-| kind | 含义 | 仓库里放什么 |
+| kind | Meaning | What belongs in the repo |
 | --- | --- | --- |
-| `metered` | 调用经过 Teebots，按次计费。用户要登录，没有积分要先充值 | 技能，以及指向 `https://api.teebots.ai/mcp/<id>` 的 `mcp.json` |
-| `byo` | 用户填写自己的编号或密钥。桌面直连对方，不经过 Teebots | `mcp.json` 里用 `${变量}` 留出空位 |
-| `oauth` | Teebots 已在对方平台登记应用，用户点登录。桌面直连对方 | 可以写公开的客户端编号。不写客户端密钥 |
-| `skill` | 只有技能，没有 MCP | `skills/`，不要 `mcp.json` |
+| `metered` | Calls go through Teebots and spend credits. The user must sign in, and must top up when the balance is empty. | Skills, plus an `mcp.json` whose URL is `https://api.teebots.ai/mcp/<id>` |
+| `byo` | The user supplies their own id or key. The desktop connects directly. | Placeholders such as `${API_KEY}` in `mcp.json` |
+| `oauth` | Teebots has registered an app with the provider. The user signs in. The desktop connects directly. | A public client id is fine. Do not commit a client secret. |
+| `skill` | Skills only, no MCP | `skills/`, and no `mcp.json` |
 
-`metered` 的上游地址和厂商密钥在 Teebots 后台，不在这个仓库。`oauth` 若对方要求客户端密钥，密钥留在桌面程序里，不提交到这里。
+Upstream URLs and provider secrets for `metered` plugins stay in the Teebots admin backend. If an `oauth` provider requires a client secret, that secret stays in the desktop app and is not committed here.
 
 ## plugin.json
 
 ```json
 {
-  "name": "xhs",
-  "displayName": "小红书",
-  "version": "1.0.0",
-  "description": "搜索笔记。",
+  "name": "research",
+  "displayName": "Research",
+  "version": "1.0.1",
+  "description": "Break a question into parts, find sources, and write a conclusion that can be checked.",
   "license": "MIT",
-  "kind": "metered",
+  "kind": "skill",
   "category": "research",
-  "author": { "name": "Teebots" }
+  "author": { "name": "Teebots" },
+  "logo": "assets/logo.svg"
 }
 ```
 
-`name` 是插件 id，小写字母、数字和短横线。`version` 用语义化版本。改了技能或 `mcp.json` 就要提高版本。价格不写在这里，改价格不改版本。
+`name` is the plugin id: lowercase letters, digits, and hyphens. `version` is a semantic version. Raise it when a skill or `mcp.json` changes. Prices are not stored here, and a price change does not need a new version.
 
-`license` 写 `MIT`。本仓库只收 MIT、Apache-2.0、BSD-2-Clause、BSD-3-Clause。
+`license` must be `MIT`, `Apache-2.0`, `BSD-2-Clause`, or `BSD-3-Clause`.
 
 ## marketplace.json
 
@@ -65,50 +62,52 @@ plugins/xhs/skills/xhs-search/SKILL.md
   "owner": { "name": "Teebots" },
   "plugins": [
     {
-      "name": "xhs",
-      "source": "plugins/xhs",
-      "description": "搜索笔记。"
+      "name": "research",
+      "source": "plugins/research",
+      "description": "Break a question into parts, find sources, and write a conclusion that can be checked."
     }
   ]
 }
 ```
 
-`source` 是仓库内的目录，不以 `/` 开头，也不含 `..`。
+`source` is a directory inside this repository. It does not start with `/` and it does not contain `..`.
 
 ## mcp.json
 
-第 1 类只写类型和地址：
+A `metered` plugin names only the transport and the Teebots URL:
 
 ```json
 {
   "mcpServers": {
-    "xhs": {
+    "example": {
       "type": "http",
-      "url": "https://api.teebots.ai/mcp/xhs"
+      "url": "https://api.teebots.ai/mcp/example"
     }
   }
 }
 ```
 
-第 2 类把要用户填写的值写成占位符，例如 `"CLIENT_SECRET": "${CLIENT_SECRET}"`。不要写成真实密钥。
+A `byo` plugin leaves user-supplied values as placeholders, for example `"CLIENT_SECRET": "${CLIENT_SECRET}"`. Do not write a real secret.
 
-第 3 类可以写 `"CLIENT_ID"` 和 `scopes`。不要写 `CLIENT_SECRET`。
+An `oauth` plugin may include `CLIENT_ID` and `scopes`. Do not include `CLIENT_SECRET`.
 
-## 技能
+## Skills
 
-`skills/<名字>/SKILL.md` 是给模型看的用法说明。`<名字>` 是小写字母、数字和短横线，一层目录，不要再嵌套。
+`skills/<name>/SKILL.md` is the instruction the model reads. `<name>` is lowercase letters, digits, and hyphens, one directory deep.
 
-## 不要提交
+Write the skill in English. The model can answer the user in the user's language.
 
-- 客户端密钥、访问令牌、刷新令牌、API 密钥
-- 第 1 类的上游地址
-- 价格
-- `.env` 和任何本地配置
+## Do not commit
 
-## 贡献
+- Client secrets, access tokens, refresh tokens, or API keys
+- Upstream URLs for `metered` plugins
+- Prices
+- `.env` files or other local config
 
-欢迎提交插件。请同时改 `plugin.json`、对应文件和 `.teebots-plugin/marketplace.json`。合并由维护者完成。桌面钉住某一次提交，不会跟着分支自动更新。第 1 类合并后还要在 Teebots 后台发布才能调用。
+## Contributing
 
-## 许可
+Plugin changes need an update to `plugin.json`, the plugin files, and `.teebots-plugin/marketplace.json`. Maintainers merge pull requests. The desktop pins one commit and does not follow the branch automatically. A `metered` plugin also has to be published in the Teebots admin backend before it can be called.
 
-本仓库以 [MIT](LICENSE) 许可证发布。Copyright (c) 2026 CODEDISCO LTD.
+## License
+
+This repository is released under the [MIT](LICENSE) license. Copyright (c) 2026 CODEDISCO LTD.

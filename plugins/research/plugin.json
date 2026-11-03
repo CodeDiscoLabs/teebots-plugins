@@ -1,8 +1,8 @@
 {
   "name": "research",
-  "displayName": "调研",
-  "version": "1.0.0",
-  "description": "把一个题目拆成问题，找来源，再写出能核对的结论。",
+  "displayName": "Research",
+  "version": "1.0.1",
+  "description": "Break a question into parts, find sources, and write a conclusion that can be checked.",
   "license": "MIT",
   "kind": "skill",
   "category": "research",

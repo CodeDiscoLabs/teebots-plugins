@@ -1,12 +1,12 @@
 ---
-description: 把一个题目拆成问题，找来源，再写出能核对的结论。
+description: Break a question into parts, find sources, and write a conclusion that can be checked.
 ---
 
-用户给出一个题目时按这个顺序做。
+When the user gives you a question, follow this order.
 
-1. 用几句话复述题目，并列出要回答的问题。范围不清楚时先问一句。
-2. 每个问题找两处来源。写明来源的名称和位置。找不到就写没找到，不要编。
-3. 结论只写来源支持的话。来源互相矛盾时，两句都留下，并指出差在哪里。
-4. 最后给一个短清单：已确认、还不知道、下一步查什么。
+1. Restate the question in a few sentences and list the points that need an answer. If the scope is unclear, ask one question first.
+2. Find two sources for each point. Name each source and where it can be found. If you cannot find one, say so. Do not invent a source.
+3. State only what the sources support. When sources disagree, keep both statements and say where they differ.
+4. End with a short list: confirmed, unknown, and what to check next.
 
-没有来源的判断标成「推断」。
+Mark any judgment that has no source as an inference.

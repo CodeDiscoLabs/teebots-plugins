@@ -5,7 +5,7 @@
     {
       "name": "research",
       "source": "plugins/research",
-      "description": "把一个题目拆成问题，找来源，再写出能核对的结论。"
+      "description": "Break a question into parts, find sources, and write a conclusion that can be checked."
     }
   ]
 }
